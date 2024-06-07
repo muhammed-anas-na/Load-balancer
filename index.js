@@ -13,7 +13,7 @@ let chalk;
   var table = new Table({ head: [chalk.white("Time"), chalk.blue("Total Servers"), chalk.green("Healthy Servers"), "Dead Servers"] });
   
   let healthyServers = [];
-  let current = 0;
+  let current = -1;
 
   healthyServers.push(...avalibleServers);
   
@@ -64,10 +64,11 @@ let chalk;
   }
 
   const makeRequestToServer = async(req,res) =>{
+    console.log("Healthy survers =>",healthyServers[current])
     try {
         const { data } = await axios({
           method: req.method,
-          url: `${healthyServers[current]}${req.originalUrl}`,
+          url: `http://${healthyServers[current].host}:${healthyServers[current].port}${req.originalUrl}`,
         });
         return res.status(200).json({
           success: true,
@@ -81,6 +82,29 @@ let chalk;
       }
   }
 
+  const handleRequest = async (req,res) =>{
+    const currentServer = roundRobinAlgorithm();
+    try{
+      if(currentServer == null) {
+        return res.json({
+          success: false,
+          error: "All Servers are dead !😵",
+          message:
+            "There is no healthy servers avalible. Make sure the url in cofig.json file is correct 🙄",
+        })
+      }
+      return makeRequestToServer(req,res);
+    }catch(error){
+      res.status(500).json({
+        success: false,
+        error: error.message,
+      });
+    }
+  }
+
+
+app.all("*" , (req,res)=>  handleRequest(req,res));
+
 
 
   app.listen(3000, () => {
@@ -89,4 +113,6 @@ let chalk;
       healthCheck();
     });
   });
+
+
 })();
