@@ -9,6 +9,7 @@ const roundRobinAlgorithm = require("./roundRobin");  //Algorithm to find the ne
 const logger = require('./logger');
 
 const app = Express();
+app.use(Express.json())
 
 let chalk;
 (async () => {
@@ -99,12 +100,14 @@ let chalk;
 
   //This function is used to handle the incoming request and select the appropriate server to send. It passes the requeset and response to makeRequestTOServer function and the original request is send by it.
   const handleRequest = async (req, res) => {
-    
+    console.log("Payload length ==>",JSON.stringify(req.body).length)
     logger.info("Handling request");
     logger.info(
       `Received request from ${req.ip}\nHost: ${
         req.hostname
-      }\nUser-Agent: ${req.get("User-Agent")}`
+      }\nUser-Agent: ${
+        req.get("User-Agent")
+      }\nPayload-size:${JSON.stringify(req.body).length}`
     );
 
     current = roundRobinAlgorithm(current, healthyServers.length); //This function will return the next healthy server which we can send the traffic. 
