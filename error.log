@@ -1,0 +1,1 @@
+{"level":"error","message":"healthCheckError - > serverNumber -> 3001 , errorMessage: read ECONNRESET","service":"user-service"}
