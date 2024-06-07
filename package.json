@@ -1,0 +1,27 @@
+{
+  "name": "load-balancer",
+  "version": "1.0.0",
+  "description": "Load balancer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/muhammed-anas-na/"
+  },
+  "keywords": [
+    "load-balancer"
+  ],
+  "author": "Muhammed Anas NA",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "chalk": "^5.3.0",
+    "cli-table3": "^0.6.5",
+    "express": "^4.19.2",
+    "node-cron": "^3.0.3",
+    "nodemon": "^3.1.3"
+  }
+}
