@@ -85,6 +85,9 @@ let chalk;
   //This function is used to send the actual request to the backend servers and handle the response.
   const makeRequestToServer = async (req, res) => {
     try {
+      return res.json({
+        message:`${healthyServers[current].host}${req.originalUrl}`
+      })
       const { data } = await axios({
         //Routiing the original request from load balancer to actual servers.
         method: req.method,
@@ -128,10 +131,7 @@ let chalk;
             "There is no healthy servers avalible. Make sure the url in cofig.json file is correct 🙄",
         });
       }
-      return res.json({
-        message:"Success"
-      });
-      //return makeRequestToServer(req, res);
+      return makeRequestToServer(req, res);
     } catch (error) {
       res.status(500).json({
         success: false,
@@ -141,8 +141,8 @@ let chalk;
   };
 
   //Handling all the incoming request from client.
-  //app.all("*", (req, res) => handleRequest(req, res));
-  app.get('/' , (req,res)=>handleRequest(req,res))
+  app.all("*", (req, res) => handleRequest(req, res));
+  //app.get('/' , (req,res)=>handleRequest(req,res))
   app.listen(3000, () => {
     console.log("Load Balancer up and running at port 3000");
     const healthCheckCronJob = cron.schedule(
