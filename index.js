@@ -139,7 +139,7 @@ let chalk;
 
   //Handling all the incoming request from client.
   //app.all("*", (req, res) => handleRequest(req, res));
-  app.get('/' , (req,res)=>{res.json({message:"Success"})})
+  app.get('/' , (req,res)=>handleRequest(req,res))
   app.listen(3000, () => {
     console.log("Load Balancer up and running at port 3000");
     const healthCheckCronJob = cron.schedule(
