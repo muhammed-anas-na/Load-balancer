@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-servers": "concurrently \"nodemon servers/server1/index.js\" \"nodemon servers/server2/index.js\" \"nodemon servers/server3/index.js\"",
     "start": "nodemon index.js"
   },
   "repository": {

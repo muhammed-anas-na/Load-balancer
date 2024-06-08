@@ -1,3 +1,5 @@
+//This algorithm find the most weighted server and returns it's index.
+
 module.exports = function weighteAlgorithm(servers){
     let weighted_server = 0;
     console.log(servers);
