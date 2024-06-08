@@ -5,9 +5,8 @@ const Express = require("express");
 const cron = require("node-cron"); //Used Schedule a task
 const Table = require("cli-table3");
 const axios = require("axios");
-const roundRobinAlgorithm = require("./roundRobin"); //Algorithm to find the next server
-const logger = require("./logger");
-const weighteAlgorithm = require("./weighteAlgorithm");
+
+
 
 const app = Express();
 app.use(Express.json());
@@ -25,6 +24,40 @@ let chalk;
       "Dead Servers",
     ],
   });
+
+  const winston = require("winston");
+
+
+//This is a configuration of winston. It is used to save logs.
+const logger = winston.createLogger({
+  level: "info",
+  format: winston.format.json(),
+  defaultMeta: { service: "user-service" },
+  transports: [
+    //Feeds error logs in error.log
+    new winston.transports.File({ filename: "error.log", level: "error" }),
+
+    //Feed info logs and low prority logs in combinedl.log
+    new winston.transports.File({ filename: "combined.log"}),
+  ],
+});
+
+function weighteAlgorithm(servers){
+  let weighted_server = 0;
+  console.log(servers);
+  for(let i=1;i<servers.length;i++){
+      if(servers[weighted_server].weight < servers[i].weight) weighted_server = i;
+  }
+  return weighted_server;
+}
+
+const roundRobinAlgorithm = (current , totalServers) => {
+  if (totalServers <= 0) return null;
+  current = (current + 1) % totalServers;
+  return current;
+};
+
+
 
   let healthyServers = []; //This Array is used to store all the HealthyServers, that we can redirect the traffic.
   let current = -1; //Used to track the server which we want to send the request. (Round Robin Algorithm).
