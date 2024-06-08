@@ -1,15 +1,16 @@
-const avalibleServers = require("./config.json").servers;  //This is the list of servers
+const avalibleServers = require("./config.json").servers; //This is the list of servers
 const healtConfig = require("./config.json").healtCheck; // Health check configrations
 
 const Express = require("express");
-const cron = require("node-cron");    //Used Schedule a task
-const Table = require("cli-table3");  
+const cron = require("node-cron"); //Used Schedule a task
+const Table = require("cli-table3");
 const axios = require("axios");
-const roundRobinAlgorithm = require("./roundRobin");  //Algorithm to find the next server
-const logger = require('./logger');
+const roundRobinAlgorithm = require("./roundRobin"); //Algorithm to find the next server
+const logger = require("./logger");
+const weighteAlgorithm = require("./weighteAlgorithm");
 
 const app = Express();
-app.use(Express.json())
+app.use(Express.json());
 
 let chalk;
 (async () => {
@@ -82,7 +83,8 @@ let chalk;
   //This function is used to send the actual request to the backend servers and handle the response.
   const makeRequestToServer = async (req, res) => {
     try {
-      const { data } = await axios({    //Routiing the original request from load balancer to actual servers.
+      const { data } = await axios({
+        //Routiing the original request from load balancer to actual servers.
         method: req.method,
         url: `http://${healthyServers[current].host}:${healthyServers[current].port}${req.originalUrl}`,
       });
@@ -100,17 +102,23 @@ let chalk;
 
   //This function is used to handle the incoming request and select the appropriate server to send. It passes the requeset and response to makeRequestTOServer function and the original request is send by it.
   const handleRequest = async (req, res) => {
-    console.log("Payload length ==>",JSON.stringify(req.body).length)
     logger.info("Handling request");
     logger.info(
       `Received request from ${req.ip}\nHost: ${
         req.hostname
-      }\nUser-Agent: ${
-        req.get("User-Agent")
-      }\nPayload-size:${JSON.stringify(req.body).length}`
+      }\nUser-Agent: ${req.get("User-Agent")}\nPayload-size:${
+        JSON.stringify(req.body).length
+      }`
     );
-
-    current = roundRobinAlgorithm(current, healthyServers.length); //This function will return the next healthy server which we can send the traffic. 
+    const payLoadSize = JSON.stringify(req.body).length;
+    console.log(payLoadSize);
+    if (payLoadSize > 500) {
+      //If the payload size is more than 500 then the request will be forwarded to the most weighted server.
+      current = weighteAlgorithm(healthyServers);
+    } else {
+      console.log("ROund robin algo");
+      current = roundRobinAlgorithm(current, healthyServers.length); //This function will return the next healthy server which we can send the traffic.
+    }
     try {
       if (current == null) {
         return res.json({
@@ -130,7 +138,7 @@ let chalk;
   };
 
   //Handling all the incoming request from client.
-  app.all("*", (req, res) => handleRequest(req, res));
+  app.all("/", (req, res) => handleRequest(req, res));
 
   app.listen(3000, () => {
     console.log("Load Balancer up and running at port 3000");

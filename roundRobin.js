@@ -4,7 +4,6 @@
 const roundRobinAlgorithm = (current , totalServers) => {
     if (totalServers <= 0) return null;
     current = (current + 1) % totalServers;
-    console.log("Current ==>",current);
     return current;
 };
 
