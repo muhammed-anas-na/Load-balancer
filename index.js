@@ -85,9 +85,6 @@ let chalk;
   //This function is used to send the actual request to the backend servers and handle the response.
   const makeRequestToServer = async (req, res) => {
     try {
-      return res.json({
-        message:`${healthyServers[current].host}${req.originalUrl}`
-      })
       const { data } = await axios({
         //Routiing the original request from load balancer to actual servers.
         method: req.method,
@@ -101,6 +98,7 @@ let chalk;
       res.status(500).json({
         success: false,
         error: error.message,
+        in:"Error in make request to server"
       });
     }
   };
