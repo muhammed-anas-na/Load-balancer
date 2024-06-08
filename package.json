@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start-servers": "concurrently \"nodemon servers/server1/index.js\" \"nodemon servers/server2/index.js\" \"nodemon servers/server3/index.js\"",
     "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/muhammed-anas-na/"
+    "url": "https://github.com/muhammed-anas-na/wasserstoff.git"
   },
   "keywords": [
     "load-balancer"
@@ -24,5 +25,8 @@
     "node-cron": "^3.0.3",
     "nodemon": "^3.1.3",
     "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }

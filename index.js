@@ -41,7 +41,6 @@ let chalk;
       );
       for (let i = 1; i <= avalibleServers.length; i++) {
         const curr = avalibleServers[i - 1];
-        console.log("currnet ==>", curr);
         try {
           //Sending a request to the backend server to validate if it is still running or not.
           const res = await axios.get(
@@ -111,12 +110,10 @@ let chalk;
       }`
     );
     const payLoadSize = JSON.stringify(req.body).length;
-    console.log(payLoadSize);
     if (payLoadSize > 500) {
       //If the payload size is more than 500 then the request will be forwarded to the most weighted server.
       current = weighteAlgorithm(healthyServers);
     } else {
-      console.log("ROund robin algo");
       current = roundRobinAlgorithm(current, healthyServers.length); //This function will return the next healthy server which we can send the traffic.
     }
     try {
@@ -138,7 +135,7 @@ let chalk;
   };
 
   //Handling all the incoming request from client.
-  app.all("/", (req, res) => handleRequest(req, res));
+  app.all("*", (req, res) => handleRequest(req, res));
 
   app.listen(3000, () => {
     console.log("Load Balancer up and running at port 3000");
