@@ -128,7 +128,9 @@ let chalk;
             "There is no healthy servers avalible. Make sure the url in cofig.json file is correct 🙄",
         });
       }
-      return;
+      return res.json({
+        message:"Success"
+      });
       //return makeRequestToServer(req, res);
     } catch (error) {
       res.status(500).json({
