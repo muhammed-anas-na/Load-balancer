@@ -28,5 +28,5 @@ Configure the file with the list of servers and health check properties.
    ```bash
    npm start
 
-   - Load balancer will continusly check weather the server is healthy or not. And send the incomming traffic to the appropriate healthy servers using Round Robin algorithm.
+- Load balancer will continusly check weather the server is healthy or not. And send the incomming traffic to the appropriate healthy servers using Round Robin algorithm.
 
