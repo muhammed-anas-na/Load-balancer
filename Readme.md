@@ -2,7 +2,7 @@
 
 This project is a basic implementation of a load balancer using NodeJS and ExpressJS. The load balancer distributes incoming requests across multiple servers to ensure efficient utilization of resources and improved system reliability.
 
-![Example Image](URL_or_path_to_image)
+![Example Image](image.png)
 
 
 ## Installation
