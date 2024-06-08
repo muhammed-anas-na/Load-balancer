@@ -25,3 +25,21 @@
 {"level":"error","message":"healthCheckError - > serverNumber -> 3003 , errorMessage: ","service":"user-service"}
 {"level":"error","message":"healthCheckError - > serverNumber -> 3003 , errorMessage: ","service":"user-service"}
 {"level":"error","message":"healthCheckError - > serverNumber -> 3003 , errorMessage: ","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3001 , errorMessage: getaddrinfo ENOTFOUND https","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3002 , errorMessage: Request failed with status code 404","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3003 , errorMessage: getaddrinfo ENOTFOUND https","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3001 , errorMessage: getaddrinfo ENOTFOUND https","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3002 , errorMessage: Request failed with status code 404","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3003 , errorMessage: getaddrinfo ENOTFOUND https","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3001 , errorMessage: getaddrinfo ENOTFOUND https","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3003 , errorMessage: getaddrinfo ENOTFOUND https","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3001 , errorMessage: getaddrinfo ENOTFOUND https","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3003 , errorMessage: getaddrinfo ENOTFOUND https","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3001 , errorMessage: getaddrinfo ENOTFOUND https","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3003 , errorMessage: getaddrinfo ENOTFOUND https","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3001 , errorMessage: getaddrinfo ENOTFOUND https","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3002 , errorMessage: ","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3002 , errorMessage: ","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3002 , errorMessage: ","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3002 , errorMessage: ","service":"user-service"}
+{"level":"error","message":"healthCheckError - > serverNumber -> 3002 , errorMessage: ","service":"user-service"}

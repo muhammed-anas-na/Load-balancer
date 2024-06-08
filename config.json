@@ -1,8 +1,8 @@
 {
     "servers":[
-        {"host":"localhost","port":3001 , "weight":3},
-        {"host":"localhost","port":3002 , "weight":2},
-        {"host":"localhost","port":3003 , "weight":1}
+        {"host":"https://server01-flax.vercel.app","port":3001 , "weight":3},
+        {"host":"https://server02-bay.vercel.app/","port":3002 , "weight":2},
+        {"host":"https://server03.vercel.app","port":3003 , "weight":1}
     ],
     "healtCheck":{
         "healthCheckTimeout":"10",

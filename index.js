@@ -42,9 +42,10 @@ let chalk;
       for (let i = 1; i <= avalibleServers.length; i++) {
         const curr = avalibleServers[i - 1];
         try {
+          console.log(`${curr.host}${healtConfig.healthCheckEndPoint}`)
           //Sending a request to the backend server to validate if it is still running or not.
           const res = await axios.get(
-            `http://${curr.host}:${curr.port}${healtConfig.healthCheckEndPoint}`
+            `${curr.host}${healtConfig.healthCheckEndPoint}`
           );
 
           //This two line of code is to make the a server as healthy server once it goes down and then restarts.
@@ -85,7 +86,7 @@ let chalk;
       const { data } = await axios({
         //Routiing the original request from load balancer to actual servers.
         method: req.method,
-        url: `http://${healthyServers[current].host}:${healthyServers[current].port}${req.originalUrl}`,
+        url: `${healthyServers[current].host}${req.originalUrl}`,
       });
       return res.status(200).json({
         success: true,
