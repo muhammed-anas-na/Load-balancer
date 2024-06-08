@@ -140,12 +140,12 @@ let chalk;
 
   app.listen(3000, () => {
     console.log("Load Balancer up and running at port 3000");
-    // const healthCheckCronJob = cron.schedule(
-    //   //This is used to call the healthCheck function after a specific timeout
-    //   `*/${healtConfig.healthCheckTimeout} * * * * *`,
-    //   () => {
-    //     healthCheck();
-    //   }
-    // );
+    const healthCheckCronJob = cron.schedule(
+      //This is used to call the healthCheck function after a specific timeout
+      `*/${healtConfig.healthCheckTimeout} * * * * *`,
+      () => {
+        healthCheck();
+      }
+    );
   });
 })();
