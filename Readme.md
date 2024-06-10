@@ -4,6 +4,8 @@ This project is a basic implementation of a load balancer using NodeJS and Expre
 
 ![Example Image](image.png)
 
+[Postman DOCUMENTATION](https://documenter.getpostman.com/view/20766898/2sA3XLEj2U#7fca26e2-d86a-4bd2-9350-557b9eb99f5f)
+
 
 ## Installation
 

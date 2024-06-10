@@ -1,16 +1,21 @@
-const avalibleServers = require("./config.json").servers; //This is the list of servers
-const healtConfig = require("./config.json").healtCheck; // Health check configrations
+const avalibleServers = require("./config.json").servers;  //This is the list of servers
+const healtConfig = require("./config.json").healtCheck;  // Health check configrations
 
 const Express = require("express");
-const cron = require("node-cron"); //Used Schedule a task
-const Table = require("cli-table3");
-const axios = require("axios");
-const roundRobinAlgorithm = require("./roundRobin"); //Algorithm to find the next server
+const cron = require("node-cron");                        //Used Schedule a task
+const Table = require("cli-table3");                      //To display in a table format
+const axios = require("axios");                           //To make API Requests
+const roundRobinAlgorithm = require("./roundRobin");      //Algorithm to find the next server
 const logger = require("./logger");
 const weighteAlgorithm = require("./weighteAlgorithm");
 
 const app = Express();
 app.use(Express.json());
+
+if(avalibleServers.length == 0){
+  console.log("Please configure at least 1 server")
+  return;
+}
 
 let chalk;
 (async () => {
@@ -78,7 +83,7 @@ let chalk;
 
       console.log(table.toString());
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 
@@ -140,7 +145,6 @@ let chalk;
 
   //Handling all the incoming request from client.
   app.all("*", (req, res) => handleRequest(req, res));
-  //app.get('/' , (req,res)=>handleRequest(req,res))
   app.listen(3000, () => {
     console.log("Load Balancer up and running at port 3000");
     const healthCheckCronJob = cron.schedule(
@@ -151,4 +155,5 @@ let chalk;
       }
     );
   });
+  
 })();
